@@ -39,7 +39,7 @@ export default {
     },
 
     beforeMount() {
-        Axios.get(`https://10.84.172.52/api/?app=nova&cmd=query&compartiment=${this.$route.params.cid}`).then((response) => {
+        Axios.get(`http://92.207.178.198:4443/api/?app=nova&cmd=query&compartiment=${this.$route.params.cid}`).then((response) => {
             console.log(response);
             if (response.status === 200) {
                 this.history = response.data

@@ -27,7 +27,7 @@ export default {
 
   actions: {
     getReadings: ({ commit }, payload) => new Promise((resolve, reject) => {
-      Axios.get(`http://localhost:3000/reading/mimic/${payload}`).then((response) => {
+      Axios.get(`http://http://92.207.178.198:3000/reading/mimic/${payload}`).then((response) => {
         commit('ADD_READING', response);
         resolve(response);
       }).catch((err) => {

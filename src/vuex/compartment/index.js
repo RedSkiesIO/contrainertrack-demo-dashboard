@@ -31,7 +31,7 @@ export default {
   actions: {
 
     createCompartment: ({ commit }) => new Promise((resolve, reject) => {
-      Axios.get('https://10.84.172.52/api/?app=nova&cmd=new_compartiment').then((response) => {
+      Axios.get('http://92.207.178.198:4443/api/?app=nova&cmd=new_compartiment').then((response) => {
         console.log(response);
         commit('ADD_COMPARTMENT', response.data);
         resolve(response);
