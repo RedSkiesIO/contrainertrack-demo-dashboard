@@ -9,7 +9,7 @@ import FetchData from 'vue-fetch-data';
 // font awsome icons
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faTruck, faStore, faWarehouse, faTruckLoading, faTachometerAlt, faExpand, faBox, faTh } from '@fortawesome/free-solid-svg-icons';
+import { faTruck, faStore, faWarehouse, faTruckLoading, faTachometerAlt, faExpand, faBox, faTh, faEye, faPlus, faWallet } from '@fortawesome/free-solid-svg-icons';
 
 // app components
 import App from './App.vue';
@@ -24,7 +24,19 @@ Vue.config.productionTip = false;
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
-library.add(faTruck, faStore, faWarehouse, faTruckLoading, faTachometerAlt, faExpand, faBox, faTh);
+library.add(
+  faTruck,
+  faStore,
+  faWarehouse,
+  faTruckLoading,
+  faTachometerAlt,
+  faExpand,
+  faBox,
+  faTh,
+  faEye,
+  faPlus,
+  faWallet,
+);
 
 new Vue({
   router,

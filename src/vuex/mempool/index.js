@@ -29,7 +29,7 @@ export default {
 
   actions: {
     getMempool: ({ commit }) => new Promise((resolve, reject) => {
-      Axios.get('https://10.84.172.95/api/?app=nova&cmd=mempool').then((response) => {
+      Axios.get('https://10.84.172.52/api/?app=nova&cmd=mempool').then((response) => {
         commit('SET_MEMPOOL', response);
         resolve(response);
       }).catch((err) => {

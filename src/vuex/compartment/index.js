@@ -31,21 +31,10 @@ export default {
   actions: {
 
     createCompartment: ({ commit }) => new Promise((resolve, reject) => {
-      Axios.get('https://10.84.172.95/api/?app=nova&cmd=new_compartiment').then((response) => {
+      Axios.get('https://10.84.172.52/api/?app=nova&cmd=new_compartiment').then((response) => {
         console.log(response);
         commit('ADD_COMPARTMENT', response.data);
         resolve(response);
-      }).catch((err) => {
-        console.log(err);
-      }, (error) => {
-        reject(error);
-      });
-    }),
-
-    getCompartment: ({ commit }, cid) => new Promise((resolve, reject) => {
-      Axios.get(`http://127.0.0.1:3000/compartment/${cid}`).then((payload) => {
-        commit('ADD_COMPARTMENT', cid, payload);
-        resolve(payload);
       }).catch((err) => {
         console.log(err);
       }, (error) => {
