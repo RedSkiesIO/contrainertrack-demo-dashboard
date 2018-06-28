@@ -83,7 +83,8 @@
 <script>
 import SensorChart from '../components/LineChart';
 import MempoolChart from '../components/Mempool';
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex';
+import Axios from 'axios';
 
 export default {
   name: 'home',
@@ -92,77 +93,84 @@ export default {
     MempoolChart,
   },
 
-  fetch: {
-    user: {
-      commit: 'mempool/SET_MEMPOOL',
-      url: 'https://10.84.172.95/api/?app=nova&cmd=mempool',
-      poll: 500,
-    },
-  },  
+  // computed: {
+  //   ...mapState(['mempool'])
+  // },
+
+  // fetch: {
+  //   mempool: {
+  //     commit: 'mempool/SET_MEMPOOL',
+  //     url: 'https://10.84.172.95/api/?app=nova&cmd=mempool',
+  //     poll: 1000,
+  //   },
+  // },
 
   computed: {
     datasetsfull() {
       return {
         labels: [
-        '1:00',
-        '1:01',
-        '1:02',
-        '1:03',
-        '1:04',
-        '1:05',
-        '1:06',
-        '1:07',
-        '1:08',
-        '1:09',
-        '1:10',
-        '1:11',
-        '1:12',
-        '1:13',
-        '1:14',
-        '1:15',
-        '1:16',
-        '1:17',
-        '1:18',
-        '1:19',
-        '1:20',
-        '1:21',
-      ],
-      datasets: [
-        {
-          steppedLine: true,
-          borderColor: '#FC2525',
-          pointBackgroundColor: 'white',
-          borderWidth: 1,
-          pointBorderColor: 'white',
-          backgroundColor: this.gradient,
-          data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        },
-      ],        
-      }
+          '1:00',
+          '1:01',
+          '1:02',
+          '1:03',
+          '1:04',
+          '1:05',
+          '1:06',
+          '1:07',
+          '1:08',
+          '1:09',
+          '1:10',
+          '1:11',
+          '1:12',
+          '1:13',
+          '1:14',
+          '1:15',
+          '1:16',
+          '1:17',
+          '1:18',
+          '1:19',
+          '1:20',
+          '1:21',
+        ],
+        datasets: [
+          {
+            steppedLine: true,
+            borderColor: '#FC2525',
+            pointBackgroundColor: 'white',
+            borderWidth: 1,
+            pointBorderColor: 'white',
+            backgroundColor: this.gradient,
+            data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+          },
+        ],
+      };
     },
     ...mapGetters([
-      'getMempool'
-    ])    
+      'getMempool',
+    ]),
   },
 
   created() {
-    Object.keys(this.nodes).forEach((node) => {
-      this.$store.dispatch('mempool/getMempool', node).then((response) => {
-        console.log(response);
-      });
-    }) 
+    // Object.keys(this.nodes).forEach((node) => {
+    //   this.$store.dispatch('mempool/getMempool', node).then((response) => {
+    //     console.log(response);
+    //   });
+    // })
     // this.$socket.onmessage = (data) => console.log(data)
   },
 
   mounted() {
-
+    // this.interval = setInterval( ()=> {
+    //   this.$store.dispatch('mempool/getMempool');
+    // }, 1000);
   },
 
   methods: {
 
   },
-  data(){
+  data() {
     return {
+      interval: null,
       nodes: {
         1: {
           ip: '10.84.172.19',
@@ -199,8 +207,8 @@ export default {
         responsive: true,
         maintainAspectRatio: false,
       },
-    }
-  }
+    };
+  },
 };
 </script>
 

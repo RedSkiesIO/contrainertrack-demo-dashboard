@@ -73,7 +73,7 @@
                               </div>
                           </div>
                         </div>
-                      </div>                    
+                      </div>
                     </div>
                   </div>
                </div>
@@ -83,7 +83,7 @@
          </div>
          <button class="modal-close is-large" v-on:click="toggleCloseLoadModal()" aria-label="close"></button>
       </div>
-      <!-- end load modal -->     
+      <!-- end load modal -->
    </div>
 </template>
 <script>
@@ -91,6 +91,7 @@
 import Vue from 'vue';
 import fullscreen from 'vue-fullscreen';
 import { mapActions, mapGetters } from 'vuex';
+import Axios from 'axios';
 
 Vue.use(fullscreen);
 
@@ -104,7 +105,7 @@ export default {
   },
 
   mounted() {
-      console.log(this.$store.getters);
+    console.log(this.$store.getters);
   },
 
   methods: {
@@ -123,7 +124,7 @@ export default {
     toggleCloseLoadModal() {
       const modal = document.querySelector('.modal');
       modal.classList.remove('is-active');
-    },      
+    },
 
     fullscreenChange(fullscreenVar) {
       this.fullscreen = fullscreenVar;
@@ -132,21 +133,25 @@ export default {
     moveItem(action) {
       this.transaction.action = action;
       this.$store.dispatch('item/move', this.transaction).then((response) => {
-        console.log(response);
         if (response.status === 200) {
-          // send sensor readings
+          Axios.get(`http://localhost:3000/reading/mimic/${this.transaction.cid}`).then((response) => {
+            console.log(response);
+            this.toggleCloseLoadModal();
+          }).catch((err) => {
+            console.log(err);
+          });
         }
         // this.$store.subscribe((mutation, state) => {
         //   if (mutation.type === 'item/SET_ITEM') {
         //     console.log('item loaded');
         //   }
-        // });        
+        // });
       });
     },
 
     ...mapActions({
-      createCompartment: 'compartment/createCompartment'
-    })    
+      createCompartment: 'compartment/createCompartment',
+    }),
   },
 
   data() {
@@ -155,10 +160,10 @@ export default {
       transaction: {
         cid: null,
         item: null,
-        action: null, 
-      }
+        action: null,
+      },
     };
-  },  
+  },
 };
 
 </script>

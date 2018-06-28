@@ -3,24 +3,21 @@ import Axios from 'axios';
 export default {
   namespaced: true,
   state: {
-    1: {
-      x: [],
-      y: [],
-    },
-    2: {
-      x: [],
-      y: [],
-    },
-    3: {
-      x: [],
-      y: [],
-    },
+    x: [],
+    y: [],
   },
+
   mutations: {
     SET_MEMPOOL(state, payload) {
-      console.log(payload);
-      state[payload.node].x = state[payload.node].x.concat(state[payload.node].x, payload.data.x);
-      state[payload.node].y = state[payload.node].y.concat(state[payload.node].y, payload.data.y);
+      console.log(payload.data.compartiments.length);
+      if (payload.data.compartiments !== null) {
+        const mempool = payload.data.compartiments.map(cid => cid.logbook.length);
+        console.log(mempool);
+      }
+      // state[payload.node].x =
+      // state[payload.node].x.concat(state[payload.node].x, payload.data.x);
+      // state[payload.node].y =
+      // state[payload.node].y.concat(state[payload.node].y, payload.data.y);
     },
   },
 
@@ -31,9 +28,9 @@ export default {
   },
 
   actions: {
-    getMempool: ({ commit }, node) => new Promise((resolve, reject) => {
-      Axios.get(`http://localhost:3000/mempool/${node}`).then((response) => {
-        commit('SET_MEMPOOL', { node, data: response.data });
+    getMempool: ({ commit }) => new Promise((resolve, reject) => {
+      Axios.get('https://10.84.172.95/api/?app=nova&cmd=mempool').then((response) => {
+        commit('SET_MEMPOOL', response);
         resolve(response);
       }).catch((err) => {
         console.log(err);
