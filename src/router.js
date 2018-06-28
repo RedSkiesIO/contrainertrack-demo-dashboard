@@ -11,7 +11,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Dashboard,
+      component: Wallet,
     },
     {
       path: '/wallet',
