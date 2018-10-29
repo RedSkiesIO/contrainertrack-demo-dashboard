@@ -12,7 +12,7 @@
          </div>
       </div>
       <div class="columns">
-         <div class="column is-one-quarter">
+         <div class="column is-one-quarter" v-show="this.$store.getters['track/GET_READING'].readings.length > 0">
             <div class="columns">
                <div class="column">
                   <mempool-chart
@@ -47,18 +47,18 @@
          <div class="column is-two-quarter">
             <div class="columns">
                <div class="column">
-                  <sensor-chart id="temp-chart-canvas"></sensor-chart>
+                  <sensor-chart id="temp-chart-canvas" chart-data="datasetsfull"></sensor-chart>
                </div>
                <div class="column">
-                  <sensor-chart id="pressure-chart-canvas"></sensor-chart>
+                  <!-- <sensor-chart id="pressure-chart-canvas"></sensor-chart> -->
                </div>
             </div>
             <div class="columns">
                <div class="column">
-                  <sensor-chart id="humidity-chart-canvas"></sensor-chart>
+                  <!-- <sensor-chart id="humidity-chart-canvas"></sensor-chart> -->
                </div>
                <div class="column">
-                  <sensor-chart id="rssi-chart-canvas"></sensor-chart>
+                  <!-- <sensor-chart id="rssi-chart-canvas"></sensor-chart> -->
                </div>
             </div>
             <div class="columns">
@@ -155,7 +155,9 @@ export default {
             borderWidth: 1,
             pointBorderColor: 'white',
             backgroundColor: this.gradient,
-            data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            data: this.$store.state.track.readings.temperature.map((item) => {
+              return item.temperature
+              }),
           },
         ],
       };
@@ -178,6 +180,7 @@ export default {
     // this.interval = setInterval( ()=> {
     //   this.$store.dispatch('mempool/getMempool');
     // }, 1000);
+    console.log(this.$store.getters['track/GET_READING'].readings.length);
   },
 
   methods: {
@@ -185,7 +188,18 @@ export default {
   },
   data() {
     return {
-      interval: null,
+      chartOptions: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: 'Humidity',
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+    },
+    interval: null,
       nodes: {
         1: {
           ip: '10.84.172.19',
