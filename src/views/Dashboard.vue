@@ -15,17 +15,32 @@
          <div class="column is-one-quarter">
             <div class="columns">
                <div class="column">
-                  <mempool-chart v-bind:node="1" v-bind:chartData="datasetsfull" v-bind:options="this.options"></mempool-chart>
+                  <mempool-chart
+                    v-bind:node="1"
+                    v-bind:chartData="datasetsfull"
+                    v-bind:options="this.options"
+                  >
+                  </mempool-chart>
                </div>
             </div>
             <div class="columns">
                <div class="column">
-                  <!-- <mempool-chart v-bind:node="2" v-bind:x="this.labels" v-bind:y="this.mempool"></mempool-chart> -->
+                  <!-- <mempool-chart
+                        v-bind:node="2"
+                        v-bind:x="this.labels"
+                        v-bind:y="this.mempool"
+                      >
+                      </mempool-chart> -->
                </div>
             </div>
             <div class="columns">
                <div class="column">
-                  <!-- <mempool-chart v-bind:node="3" v-bind:x="this.labels" v-bind:y="this.mempool"></mempool-chart> -->
+                  <!-- <mempool-chart
+                          v-bind:node="3"
+                          v-bind:x="this.labels"
+                          v-bind:y="this.mempool"
+                        >
+                        </mempool-chart> -->
                </div>
             </div>
          </div>
@@ -81,10 +96,10 @@
    </section>
 </template>
 <script>
-import SensorChart from '../components/LineChart';
+// import Axios from 'axios';
+import { mapGetters } from 'vuex';
 import MempoolChart from '../components/Mempool';
-import { mapGetters, mapState } from 'vuex';
-import Axios from 'axios';
+import SensorChart from '../components/LineChart';
 
 export default {
   name: 'home',
@@ -97,13 +112,13 @@ export default {
   //   ...mapState(['mempool'])
   // },
 
-  // fetch: {
-  //   mempool: {
-  //     commit: 'mempool/SET_MEMPOOL',
-  //     url: 'https://10.84.172.95/api/?app=nova&cmd=mempool',
-  //     poll: 1000,
-  //   },
-  // },
+  fetch: {
+    mempool: {
+      commit: 'mempool/SET_MEMPOOL',
+      url: 'https://10.84.172.95/api/?app=nova&cmd=mempool',
+      poll: 1000,
+    },
+  },
 
   computed: {
     datasetsfull() {
