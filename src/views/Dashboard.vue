@@ -25,22 +25,22 @@
             </div>
             <div class="columns">
                <div class="column">
-                  <!-- <mempool-chart
+                  <mempool-chart
                         v-bind:node="2"
                         v-bind:x="this.labels"
                         v-bind:y="this.mempool"
                       >
-                      </mempool-chart> -->
+                      </mempool-chart>
                </div>
             </div>
             <div class="columns">
                <div class="column">
-                  <!-- <mempool-chart
+                  <mempool-chart
                           v-bind:node="3"
                           v-bind:x="this.labels"
                           v-bind:y="this.mempool"
                         >
-                        </mempool-chart> -->
+                        </mempool-chart>
                </div>
             </div>
          </div>
@@ -50,15 +50,15 @@
                   <sensor-chart id="temp-chart-canvas" chart-data="datasetsfull"></sensor-chart>
                </div>
                <div class="column">
-                  <!-- <sensor-chart id="pressure-chart-canvas"></sensor-chart> -->
+                  <sensor-chart id="pressure-chart-canvas"></sensor-chart>
                </div>
             </div>
             <div class="columns">
                <div class="column">
-                  <!-- <sensor-chart id="humidity-chart-canvas"></sensor-chart> -->
+                  <sensor-chart id="humidity-chart-canvas"></sensor-chart>
                </div>
                <div class="column">
-                  <!-- <sensor-chart id="rssi-chart-canvas"></sensor-chart> -->
+                  <sensor-chart id="rssi-chart-canvas"></sensor-chart>
                </div>
             </div>
             <div class="columns">
@@ -155,9 +155,7 @@ export default {
             borderWidth: 1,
             pointBorderColor: 'white',
             backgroundColor: this.gradient,
-            data: this.$store.state.track.readings.temperature.map((item) => {
-              return item.temperature
-              }),
+            data: this.$store.state.track.readings.temperature.map(item => item.temperature),
           },
         ],
       };
@@ -189,17 +187,17 @@ export default {
   data() {
     return {
       chartOptions: {
-      legend: {
-        display: false,
+        legend: {
+          display: false,
+        },
+        title: {
+          display: true,
+          text: 'Humidity',
+        },
+        responsive: true,
+        maintainAspectRatio: false,
       },
-      title: {
-        display: true,
-        text: 'Humidity',
-      },
-      responsive: true,
-      maintainAspectRatio: false,
-    },
-    interval: null,
+      interval: null,
       nodes: {
         1: {
           ip: '10.84.172.19',

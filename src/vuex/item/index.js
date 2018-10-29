@@ -8,7 +8,7 @@ export default {
 
   mutations: {
     SET_ITEM(state) {
-      state.count++;
+      state.count += 1;
     },
   },
 
@@ -22,7 +22,7 @@ export default {
   actions: {
     move: ({ commit }, payload) => new Promise((resolve, reject) => {
       console.log(payload);
-      Axios.get(`http://92.207.178.198:4443/api/?app=nova&cmd=move&compartiment=${payload.cid}&item=${payload.item}&action=${payload.action}&send=1`, payload).then((response) => {
+      Axios.post('http://127.0.0.1:3000/item/move', { name: payload.item, compartment_id: payload.cid }).then((response) => {
         commit('SET_ITEM', response);
         resolve(response);
       }).catch((err) => {

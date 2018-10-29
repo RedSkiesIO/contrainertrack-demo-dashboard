@@ -9,7 +9,7 @@ export default {
   mutations: {
 
     ADD_COMPARTMENT(state, response) {
-      state.cid = state.cid.concat(response.compartiment);
+      state.cid = state.cid.concat(response);
     },
 
     // ADD_COMPARTMENT_SONSOR_READING(cid, payload) {
@@ -31,9 +31,9 @@ export default {
   actions: {
 
     createCompartment: ({ commit }) => new Promise((resolve, reject) => {
-      Axios.get('http://92.207.178.198:4443/api/?app=nova&cmd=new_compartiment').then((response) => {
+      Axios.get('http://127.0.0.1:3000/compartment').then((response) => {
         console.log(response);
-        commit('ADD_COMPARTMENT', response.data);
+        commit('ADD_COMPARTMENT', { cid: response.data.id, address: response.data.address });
         resolve(response);
       }).catch((err) => {
         console.log(err);

@@ -4,25 +4,36 @@
     <div class="about has-text-white">
       <table class="table is-dark-dark has-text-white is-fullwidth">
         <thead class="has-text-white">
-          <tr class="is-pulled-peft" style="text-align: left" v-on:click="createCompartment()" >Add Compartment <font-awesome-icon icon="plus" /></tr>
+          <tr class="is-pulled-peft"
+            style="text-align: left"
+            v-on:click="createCompartment()">Add Compartment<font-awesome-icon icon="plus" />
+          </tr>
           <tr>&nbsp;</tr>
           <tr class="has-text-white">
             <td class="has-text-white">Compartment ID</td>
             <td class="has-text-white">Load</td>
             <td class="has-text-white">Unload</td>
-            <td class="has-text-white">info</td>            
+            <td class="has-text-white">info</td>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="compartiment in this.$store.getters['compartment/GET_ALL_COMPARTMENTS']" v-bind:key='compartiment'>
-            <td>{{ compartiment }}</td>
+          <tr
+            v-for="compartiment in this.$store.getters['compartment/GET_ALL_COMPARTMENTS']"
+            v-bind:key='compartiment'
+          >
+            <td>{{ compartiment.address }}</td>
             <td>
-              <div href="#" :cid="compartiment" v-on:click="toggleOpenLoadModal(compartiment, 'load')">
+              <div href="#"
+                :cid="compartiment"
+                v-on:click="toggleOpenLoadModal(compartiment, 'load')"
+              >
                 <font-awesome-icon icon="truck-loading" />
               </div>
             </td>
             <td>
-              <font-awesome-icon icon="box" v-on:click="toggleOpenUnLoadModal(compartiment, 'unload')" />
+              <font-awesome-icon icon="box"
+                v-on:click="toggleOpenUnLoadModal(compartiment, 'unload')"
+              />
             </td>
             <td>
               <div v-on:click="goTransactions(compartiment)"><font-awesome-icon icon="eye" /></div>
@@ -52,7 +63,10 @@
                           <div class="control">
                               <div class="select is-fullwidth">
                                 <select v-model="transaction.cid">
-                                    <option v-for="compartiment in this.$store.getters['compartment/GET_ALL_COMPARTMENTS']" v-bind:key='compartiment'>{{ compartiment }}</option>
+                                  /* eslint-disable */
+                                    <option
+                                      v-for="compartiment in this.$store.getters['compartment/GET_ALL_COMPARTMENTS']"
+                                      v-bind:key='compartiment'>{{ compartiment }}</option>
                                 </select>
                               </div>
                           </div>
@@ -76,7 +90,12 @@
                       <div class="control">
                           <div class="select is-fullwidth">
                             <select v-model="transaction.item">
-                                <option v-for="fruit in this.$store.getters['item/GET_FRUIT']" v-bind:key='fruit'>{{fruit}}</option>
+                                <option
+                                  v-for="fruit in this.$store.getters['item/GET_FRUIT']"
+                                  v-bind:key='fruit'
+                                >
+                                  {{fruit}}
+                                </option>
                             </select>
                           </div>
                       </div>
@@ -88,7 +107,7 @@
                 </div>
               </div>
             </div>
-            
+
             <!-- end field -->
         </div>
       </div>
@@ -120,21 +139,23 @@ export default {
 
     ...mapActions({
       createCompartment: 'compartment/createCompartment',
-    }), 
-   
+    }),
+
     toggleOpenLoadModal(compartiment, action) {
-      this.transaction.cid = compartiment;
+      console.log(23232);
+      console.log(compartiment);
+      this.transaction.cid = compartiment.cid;
       this.transaction.action = action;
       const modal = document.querySelector('.modal');
       modal.classList.add('is-active');
     },
 
     toggleOpenUnLoadModal(compartiment, action) {
-      this.transaction.cid = compartiment;
+      this.transaction.cid = compartiment.cid;
       this.transaction.action = action;
       const modal = document.querySelector('.modal');
       modal.classList.add('is-active');
-    },    
+    },
 
     toggleCloseLoadModal() {
       const modal = document.querySelector('.modal');
@@ -142,18 +163,17 @@ export default {
     },
 
     moveItem() {
+      console.log(this.transaction);
       this.$store.dispatch('item/move', this.transaction).then((response) => {
-        console.log('trace resaponse suc');
-        console.log(this.$store.state.track.readings.pressure.map((item) => {
-          return item.pressure
-        }));
+        console.log('item/move');
+        console.log(this.$store.state.track.readings.pressure.map(item => item.pressure));
         this.toggleCloseLoadModal();
       });
     },
-    
+
     goTransactions(compartiment) {
       this.$router.push(`/wallet/compartment/${compartiment}/transactions`);
-    }
+    },
   },
-}
+};
 </script>

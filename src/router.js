@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import Dashboard from './views/Dashboard.vue';
+import Dashboard from './views/Dashboard.vue';
 import Wallet from './views/Wallet.vue';
 import transactions from './views/Transactions.vue';
 
@@ -17,6 +17,11 @@ export default new Router({
       path: '/wallet',
       name: 'wallet',
       component: Wallet,
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard,
     },
     {
       path: '/wallet/compartment/:cid/transactions',
